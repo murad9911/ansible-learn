@@ -29,5 +29,8 @@
       port: "{{ http_port }}/tcp"
       permanent: yes
       state: enabled
+  - name: Add index file
+    shell: echo 'Welcome to Localhost' >> /var/www/html/index.html
+
   
 ...
