@@ -1,0 +1,33 @@
+---
+- hosts: all
+  become: true
+  gather_facts: no
+  vars:
+    service: httpd
+  tasks:
+
+  - name: install "{{ service }}" package
+    package:
+      name: "{{ service }}"
+      state: present
+
+  - name: enable httpd service
+    service:
+      name: "{{ service }}"
+      state: started
+      enabled: yes
+
+  - name: get status
+    command: "systemctl is-active  httpd"
+    register: state
+  
+  - debug: 
+      msg="{{ service }} is {{ state.stdout }}"
+
+  - name: firewall open port
+    firewalld:
+      port: "{{ http_port }}/tcp"
+      permanent: yes
+      state: enabled
+  
+...
