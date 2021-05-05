@@ -1,0 +1,15 @@
+---
+- hosts: all
+  become: true
+  gather_facts: no
+  tasks:
+
+  - name: create user
+    user:
+      name: script_runner
+      password: 12345678
+      shell: /bin/bash
+      groups: wheel
+      append: yes
+      uid: 1051
+...

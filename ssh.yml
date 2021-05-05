@@ -1,0 +1,16 @@
+---
+- hosts: all
+  become: true
+  gather_facts: no
+  tasks:
+
+  - name: sshd_config file change
+    ansible.builtin.lineinfile:
+      path: /etc/ssh/sshd_config
+      regexp: '^#LoginGraceTime'
+      line: LoginGraceTime 10m
+  - name: ssh service restart
+    service:
+      name: sshd
+      state: restarted
+...
