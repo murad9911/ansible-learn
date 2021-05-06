@@ -1,0 +1,14 @@
+---
+- hosts: all
+  become: true
+  gather_facts: no
+  tasks:
+
+  - name: copy file
+    copy:
+      src: /nfs/doc.txt
+      dest: /nfsdata/txt.doc
+      owner: root
+      group: root
+      mode: '0770'
+...
